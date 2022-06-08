@@ -1,9 +1,21 @@
-import Express from "express";
-import ExpressAdapter from "../../adapter/ExpressAdapter";
-import ToDoController from "../../controller/ToDoController";
+import * as express from "express";
+import { injectable, inject } from "inversify";
+import { httpGet, interfaces, controller, requestParam, response, request } from "inversify-express-utils";
+import ToDoControllerInterface from "../../controller/Interfaces/ToDoControllerInterface";
+import { TYPES } from "../DI/Types";
+import "reflect-metadata";
 
-const app = new Express();
+@controller('/to-do')
+export class ToDoExpressController implements interfaces.Controller {
 
-app.get("/to-do/:id", ExpressAdapter.create(ToDoController.getToDo));
+    private _toDoController: ToDoControllerInterface;
 
-app.listen(3000);
+    constructor(@inject(TYPES.ToDoControllerInterface) toDoController: ToDoControllerInterface) {
+        this._toDoController = toDoController;
+    }
+
+    @httpGet("/:id")
+    public getToDo(@request() req: express.Request, @response() res: express.Response) {
+        return this._toDoController.getToDo(req.params, req.body);
+    }
+}

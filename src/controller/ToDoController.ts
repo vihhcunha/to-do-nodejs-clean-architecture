@@ -1,12 +1,21 @@
+import { inject, injectable } from "inversify";
+import ToDoRepository from "../core/repository/ToDoRepository";
 import GetToDo from "../core/usecase/GetToDo";
-import SQLiteContext from "../infra/database/SqliteContext";
-import ToDoRepositoryMemory from "../infra/repository/ToDoRepositoryMemory";
+import "reflect-metadata";
+import { TYPES } from "../infra/DI/Types";
+import ToDoControllerInterface from "./Interfaces/ToDoControllerInterface";
 
-export default class ToDoController {
-    static async getToDo(params, body) {
-        var sqliteContext = await SQLiteContext.createAsync();
-        const toDoRepositoryMemory = new ToDoRepositoryMemory(sqliteContext);
-        const getToDo = new GetToDo(toDoRepositoryMemory);
+@injectable()
+export default class ToDoController implements ToDoControllerInterface {
+
+    toDoRepository: ToDoRepository;
+
+    constructor(@inject(TYPES.ToDoRepository)toDoRepository: ToDoRepository){
+        this.toDoRepository = toDoRepository;
+    }
+
+    public async getToDo(params, body) {
+        const getToDo = new GetToDo(this.toDoRepository);
         const toDo = await getToDo.executeById(params.id);
         return toDo;
     }

@@ -1,12 +1,16 @@
+import { inject, injectable } from "inversify";
 import ToDoAdapter from "../../adapter/ToDoAdapter";
 import ToDo from "../../core/entity/ToDo";
 import ToDoRepository from "../../core/repository/ToDoRepository";
 import SQLiteContext from "../database/SqliteContext";
+import { TYPES } from "../DI/Types";
+import "reflect-metadata";
 
+@injectable()
 export default class ToDoRepositoryMemory implements ToDoRepository {
     sqliteContext: SQLiteContext;
 
-    constructor(sqliteContext: SQLiteContext) {
+    constructor(@inject(TYPES.SQLiteContext) sqliteContext: SQLiteContext) {
         this.sqliteContext = sqliteContext;
     }
 
