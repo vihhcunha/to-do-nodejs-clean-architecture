@@ -1,3 +1,4 @@
+import ToDo from "../entity/ToDo";
 import ToDoRepository from "../repository/ToDoRepository";
 
 export default class GetToDo{
@@ -7,11 +8,11 @@ export default class GetToDo{
         this.toDoRepository = toDoRepository;
     }
 
-    async executeById(id: string){
+    async executeById(id: number): Promise<ToDo> {
         return await this.toDoRepository.getToDo(id);
     }
 
-    async executeByName(name: string){
+    async executeByName(name: string): Promise<ToDo> {
         return await this.toDoRepository.getToDoByName(name);
     }
 }
