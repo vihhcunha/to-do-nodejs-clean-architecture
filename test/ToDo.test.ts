@@ -1,5 +1,5 @@
-import GetAllToDo from "../src/core/usecase/getAllToDo";
-import GetToDo from "../src/core/usecase/getToDo";
+import GetAllToDo from "../src/core/usecase/GetAllToDo";
+import GetToDo from "../src/core/usecase/GetToDo";
 import NewToDo from "../src/core/usecase/NewToDo";
 import SQLiteContext from "../src/infra/database/SqliteContext";
 import ToDoRepositoryMemory from "../src/infra/repository/ToDoRepositoryMemory";
