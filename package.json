@@ -6,7 +6,8 @@
   "scripts": {
     "main": "tsc && node ./dist/main.js",
     "test": "tsc && jest ./dist",
-    "express": "tsc && node ./dist/src/main.js"
+    "express": "tsc && node ./dist/src/main.js",
+    "express-debug": "tsc && node --inspect ./dist/src/main.js"
   },
   "author": "",
   "license": "ISC",
