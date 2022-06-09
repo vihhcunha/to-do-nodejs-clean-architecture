@@ -9,7 +9,7 @@ const SQL_ITENS_CREATE = `
         name TEXT,
         description TEXT,
         finishDate DATETIME,
-        done BIT
+        done BOOLEAN
     )`
 
 export default class SQLiteDatabaseBuilder {

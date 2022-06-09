@@ -21,8 +21,9 @@ export default class ToDoRepositoryMemory implements ToDoRepository {
     }
 
     updateToDo(id: number, name: string, description: string, finishDate: Date, done: boolean) {
+        let doneDb = done ? 1 : 0;
         const sql = 'UPDATE ToDo SET name = ?, description = ?, finishDate = ?, done = ? WHERE id = ?'
-        const params = [name, description, finishDate, done, id]
+        const params = [name, description, finishDate, doneDb, id]
         this.sqliteContext.db.run(sql, params);
     }
 
@@ -33,7 +34,7 @@ export default class ToDoRepositoryMemory implements ToDoRepository {
 
         var toDos: ToDo[] = [];
         results.forEach(toDoData => {
-            toDos.push(ToDoAdapter.create(toDoData.id, toDoData.name, toDoData.description, toDoData.finishDate));
+            toDos.push(ToDoAdapter.create(toDoData.id, toDoData.name, toDoData.description, toDoData.finishDate, toDoData.done));
         });
 
         return toDos;
@@ -44,7 +45,7 @@ export default class ToDoRepositoryMemory implements ToDoRepository {
         const params = [id]
         var results = await this.sqliteContext.db.get(sql, params);
 
-        var toDo = ToDoAdapter.create(results.id, results.name, results.description, results.finishDate);
+        var toDo = ToDoAdapter.create(results.id, results.name, results.description, results.finishDate, results.done);
         return toDo;
     }
 
@@ -53,7 +54,7 @@ export default class ToDoRepositoryMemory implements ToDoRepository {
         const params = [name]
         var results = await this.sqliteContext.db.get(sql, params);
 
-        var toDo = ToDoAdapter.create(results.id, results.name, results.description, results.finishDate);
+        var toDo = ToDoAdapter.create(results.id, results.name, results.description, results.finishDate, results.done);
         return toDo;
     }
 }

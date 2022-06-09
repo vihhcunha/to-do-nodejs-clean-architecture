@@ -1,3 +1,6 @@
 export default interface ToDoControllerInterface {
-    getToDo(params, body);
+    getToDo(params);
+    getAllToDos();
+    addToDo(body);
+    setToDoAsDone(params);
 }
