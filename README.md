@@ -15,3 +15,4 @@ About the project architecture, I tried to apply all concepts that Clean Archite
 - Use Cases
 - Adapters
 - Infra
+- Dependency Rule
